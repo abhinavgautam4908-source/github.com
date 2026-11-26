@@ -1,0 +1,526 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WinterCare ❄️</title>
+
+<style>
+:root {
+  --blue: #2477b8;
+  --navy: #163b5c;
+  --pale: #eaf6ff;
+  --ink: #20364a;
+  --muted: #668096;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(145deg, #eaf6ff, #f8fcff);
+  color: var(--ink);
+}
+
+header {
+  background: linear-gradient(120deg, #176da8, #4da6d8);
+  color: white;
+  padding: 25px;
+  text-align: center;
+}
+
+.brand {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+main {
+  max-width: 1100px;
+  margin: 25px auto;
+  padding: 15px;
+}
+
+h1, h2 {
+  color: var(--navy);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.card {
+  background: white;
+  border: 1px solid #dcebf5;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 5px 15px #245b7b12;
+}
+
+button {
+  background: var(--blue);
+  color: white;
+  border: none;
+  padding: 11px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+.secondary {
+  background: #e6f3fb;
+  color: var(--navy);
+}
+
+.stat {
+  font-size: 30px;
+  color: var(--blue);
+  font-weight: bold;
+}
+
+.progress {
+  height: 10px;
+  background: #e5f0f7;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 12px 0;
+}
+
+.progress div {
+  height: 100%;
+  width: 0;
+  background: #2477b8;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0;
+}
+
+.tab {
+  background: white;
+  color: #31556f;
+  border: 1px solid #dcebf5;
+  border-radius: 25px;
+}
+
+.tab.active {
+  background: var(--blue);
+  color: white;
+}
+
+.panel {
+  display: none;
+}
+
+.panel.active {
+  display: block;
+}
+
+.two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.tip-list {
+  line-height: 1.9;
+  color: #526b7f;
+}
+
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.food {
+  padding: 15px;
+  background: #f1f8fc;
+  border-radius: 12px;
+}
+
+.food b {
+  display: block;
+  color: var(--navy);
+  margin-bottom: 5px;
+}
+
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid #dcebf5;
+}
+
+.check-row input {
+  width: 18px;
+  height: 18px;
+}
+
+.notice {
+  background: #fff8e8;
+  border: 1px solid #f2dfad;
+  padding: 15px;
+  border-radius: 12px;
+  line-height: 1.5;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: var(--muted);
+}
+
+@media(max-width:760px) {
+  .grid, .two {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media(max-width:480px) {
+  .food-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">❄️ WinterCare</div>
+  <p>Your Winter Health Assistant</p>
+</header>
+
+<main>
+
+<h1>Hello! Stay Healthy This Winter 💙</h1>
+<p>Take care of your health and enjoy the winter season!</p>
+
+<div class="grid">
+
+<div class="card">
+<h2>💧 Water Tracker</h2>
+<p>Glasses of water today</p>
+<div class="stat"><span id="waterCount">0</span>/8</div>
+<div class="progress"><div id="waterBar"></div></div>
+<button onclick="addWater()">+ Add Water</button>
+<button class="secondary" onclick="removeWater()">Undo</button>
+</div>
+
+<div class="card">
+<h2>✅ Daily Checklist</h2>
+<p>Healthy habits completed</p>
+<div class="stat"><span id="doneCount">0</span>/5</div>
+<div class="progress"><div id="taskBar"></div></div>
+<button onclick="showTab('checklist')">View Checklist</button>
+</div>
+
+<div class="card">
+<h2>🌤️ Winter Reminder</h2>
+<p>Wear warm clothes, drink water, eat healthy food and get enough sleep.</p>
+</div>
+
+</div>
+
+<div class="tabs">
+<button class="tab active" onclick="showTab('tips',this)">🌡️ Health Tips</button>
+<button class="tab" onclick="showTab('food',this)">🥗 Food</button>
+<button class="tab" onclick="showTab('care',this)">🧴 Skin Care</button>
+<button class="tab" onclick="showTab('exercise',this)">🏃 Exercise</button>
+<button class="tab" onclick="showTab('checklist',this)">📅 Checklist</button>
+<button class="tab" onclick="showTab('symptoms',this)">🩺 Health Guide</button>
+</div>
+
+<section class="panel active" id="tips">
+<div class="two">
+
+<div class="card">
+<h2>🧣 Keep Yourself Warm</h2>
+<ul class="tip-list">
+<li>Wear warm clothes.</li>
+<li>Cover your head and hands.</li>
+<li>Keep your room comfortably warm.</li>
+<li>Avoid staying in wet clothes.</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>🫧 Prevent Infections</h2>
+<ul class="tip-list">
+<li>Wash your hands regularly.</li>
+<li>Cover your mouth while coughing.</li>
+<li>Avoid close contact with sick people.</li>
+<li>Keep your surroundings clean.</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>😴 Sleep Well</h2>
+<p>Maintain a regular sleeping schedule and get enough rest.</p>
+</div>
+
+<div class="card">
+<h2>☀️ Get Daylight</h2>
+<p>Spend some time outdoors when the weather is comfortable.</p>
+</div>
+
+</div>
+</section>
+
+<section class="panel" id="food">
+<div class="card">
+<h2>🥗 Healthy Winter Foods</h2>
+
+<div class="food-grid">
+<div class="food">
+<b>🥕 Vegetables</b>
+Carrots, spinach and peas.
+</div>
+
+<div class="food">
+<b>🍊 Fruits</b>
+Oranges, apples and guava.
+</div>
+
+<div class="food">
+<b>🥣 Warm Meals</b>
+Soup, dal and khichdi.
+</div>
+
+<div class="food">
+<b>🥛 Dairy</b>
+Milk and curd.
+</div>
+
+<div class="food">
+<b>🥜 Nuts</b>
+Almonds and walnuts.
+</div>
+
+<div class="food">
+<b>💧 Water</b>
+Drink fluids regularly.
+</div>
+</div>
+</div>
+</section>
+
+<section class="panel" id="care">
+<div class="two">
+
+<div class="card">
+<h2>🧴 Skin Care</h2>
+<ul class="tip-list">
+<li>Use moisturiser regularly.</li>
+<li>Apply lip balm.</li>
+<li>Avoid very hot water.</li>
+<li>Use sunscreen outdoors.</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>💆 Hair Care</h2>
+<ul class="tip-list">
+<li>Use a gentle shampoo.</li>
+<li>Avoid excessive heat styling.</li>
+<li>Keep your scalp clean.</li>
+<li>Be gentle while combing.</li>
+</ul>
+</div>
+
+</div>
+</section>
+
+<section class="panel" id="exercise">
+<div class="card">
+<h2>🏃 Winter Exercise Guide</h2>
+<ul class="tip-list">
+<li>Start with gentle stretching.</li>
+<li>Go for a comfortable walk.</li>
+<li>Try simple indoor exercises.</li>
+<li>Take breaks when needed.</li>
+<li>Stay hydrated.</li>
+</ul>
+
+<div class="notice">
+Exercise indoors if outdoor conditions are too cold, icy or unsafe.
+</div>
+</div>
+</section>
+
+<section class="panel" id="checklist">
+<div class="card">
+<h2>📅 My Daily Health Checklist</h2>
+<p>Tick the habits you complete!</p>
+
+<div id="checkItems"></div>
+
+<p id="checkMessage"></p>
+
+<button class="secondary" onclick="resetTasks()">Reset Checklist</button>
+</div>
+</section>
+
+<section class="panel" id="symptoms">
+<div class="card">
+<h2>🩺 Health Information</h2>
+
+<div class="food-grid">
+<div class="food">
+<b>🤧 Common Cold</b>
+Rest, drink fluids and seek advice if needed.
+</div>
+
+<div class="food">
+<b>🌡️ Fever</b>
+Rest and drink fluids. Seek medical advice if it persists.
+</div>
+
+<div class="food">
+<b>😮‍💨 Breathing Difficulty</b>
+Seek urgent medical help.
+</div>
+
+<div class="food">
+<b>🚨 Emergency</b>
+Get immediate medical assistance for severe symptoms.
+</div>
+</div>
+
+<p class="notice">
+Important: This app provides general educational information. It does not diagnose or treat illnesses. Consult a qualified healthcare professional when needed. In India, call 112 for emergencies.
+</p>
+</div>
+</section>
+
+</main>
+
+<footer>
+❄️ WinterCare | Your Winter Wellness Companion
+</footer>
+
+<script>
+
+let water = 0;
+
+const tasks = [
+"Drink water regularly",
+"Eat fruits and vegetables",
+"Do some exercise",
+"Wash hands regularly",
+"Get enough sleep"
+];
+
+let completed = [false,false,false,false,false];
+
+function addWater() {
+  water = Math.min(8,water+1);
+  updateWater();
+}
+
+function removeWater() {
+  water = Math.max(0,water-1);
+  updateWater();
+}
+
+function updateWater() {
+  document.getElementById("waterCount").textContent = water;
+  document.getElementById("waterBar").style.width =
+  (water/8*100)+"%";
+}
+
+function showTab(id,button) {
+
+  document.querySelectorAll(".panel").forEach(panel=>{
+    panel.classList.remove("active");
+  });
+
+  document.querySelectorAll(".tab").forEach(tab=>{
+    tab.classList.remove("active");
+  });
+
+  document.getElementById(id).classList.add("active");
+
+  if(button) button.classList.add("active");
+  else {
+    document.querySelectorAll(".tab").forEach(tab=>{
+      if(tab.getAttribute("onclick").includes("'"+id+"'")) {
+        tab.classList.add("active");
+      }
+    });
+  }
+}
+
+function createChecklist() {
+
+  const container = document.getElementById("checkItems");
+  container.innerHTML = "";
+
+  tasks.forEach((task,index)=>{
+
+    const row = document.createElement("div");
+    row.className = "check-row";
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = completed[index];
+
+    checkbox.addEventListener("change",()=>{
+      completed[index] = checkbox.checked;
+      updateTasks();
+    });
+
+    const label = document.createElement("label");
+    label.textContent = task;
+
+    row.appendChild(checkbox);
+    row.appendChild(label);
+
+    container.appendChild(row);
+
+  });
+
+  updateTasks();
+}
+
+function updateTasks() {
+
+  const done = completed.filter(Boolean).length;
+
+  document.getElementById("doneCount").textContent = done;
+
+  document.getElementById("taskBar").style.width =
+  (done/tasks.length*100)+"%";
+
+  document.getElementById("checkMessage").textContent =
+  done===5
+  ? "🎉 Excellent! All habits completed!"
+  : "Keep going! Every healthy habit counts.";
+}
+
+function resetTasks() {
+  completed = [false,false,false,false,false];
+  createChecklist();
+}
+
+createChecklist();
+updateWater();
+
+</script>
+
+</body>
+</html>
